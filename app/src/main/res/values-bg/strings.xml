@@ -61,7 +61,7 @@
     <string name="disable_motion_sensors_setting_summary">Изключване на сензорите за движение, когато устройството влезе в режим Doze</string>
     <string name="disable_motion_sensors_setting_title">Изключване на сензорите за движение</string>
     <string name="disable_all_sensors_setting_title">Изключване на всички сензори</string>
-    <string name="disable_biometrics_setting_title">Изключване на биометр. удост. при изкл. екран</string>
+    <string name="disable_biometrics_setting_title">Изключване на биометр. удостоверяване</string>
     <string name="disable_biometrics_setting_summary">Изключване на отключване с биометрични данни при изключен екран. Възможно е да не работи на всички устройства</string>
     <string name="disable_when_charging_setting_summary">Изключване на EnforceDoze, когато устройството е включено към зарядно устройство</string>
     <string name="disable_when_charging_setting_title">Изключване при зареждане</string>
@@ -167,12 +167,12 @@
     <string name="usage_access_permission">Достъп до данни за употребата</string>
     <string name="usage_access_explanation">За запитване към текущото приложение, е необходимо разрешение за достъп до данните за употреба. Трябва да дадететова разрешение, като отворите настройките „Достъп до данни за употребата“</string>
     <string name="open_button_text">Отваряне</string>
-    <string name="enable_battery_saver_setting_title">Пестене на батерия при гасене на екрана</string>
+    <string name="enable_battery_saver_setting_title">Пестене на батерия</string>
     <string name="enable_battery_saver_setting_summary">Включване на режима на пестене на батерия, докато устройството е в режим Doze</string>
     <string name="licenses">лицензи</string>
     <string name="translations">преводи</string>
     <string name="privacy_policy">политика за поверителност</string>
-    <string name="enable_airplane_setting_title">Самолетен режим при изключен екран</string>
+    <string name="enable_airplane_setting_title">Самолетен режим</string>
     <string name="enable_airplane_setting_summary">Включване на самолетен режим по време на Doze</string>
     <string name="wait_unlock_setting_title">Напускане на Doze след отключване</string>
     <string name="wait_unlock_setting_summary">Изчакване на отключване на устройството, за да бъде напуснат режима Doze и да бъдат включени изключените възможности</string>
@@ -190,4 +190,10 @@
     <string name="execution_mode_shizuku">Shizuku</string>
     <string name="execution_mode_setting_title">Метод за изпълняване на команди</string>
     <string name="shizuku_not_available_error">Като метод за изпълняване на команди е избран Shizuku, но не е инсталиран. Инсталирайте и настройте Shizuku или изберете метода на суперпотребителя в настройките.</string>
+    <string name="disable_bluetooth_setting_title">Изключване на Bluetooth</string>
+    <string name="disable_gps_setting_title">Изключване на GPS</string>
+    <string name="disable_bluetooth_setting_summary">Изключване на Bluetooth докато устройството е в режим Doze</string>
+    <string name="disable_gps_setting_summary">Изключване на GPS/местоположение докато устройството е в режим Doze</string>
+    <string name="copy_tunable_string">Копиране на настройка</string>
+    <string name="apply">Прилагане</string>
 </resources>
