@@ -134,7 +134,7 @@
     <string name="disable_data_during_doze_setting_title">Desactivar datos móviles durante Doze</string>
     <string name="motion_sensing_disable_non_root_setting_summary">Evitar que el movimiento del dispositivo desactive Doze (no root, experimental)</string>
     <string name="motion_sensing_disable_non_root_setting_title">Deshabilitar sensores de movimiento para Doze</string>
-    <string name="tasker_broadcast_setting_title">Transmisiones de Tasker</string>
+    <string name="tasker_broadcast_setting_title">Difusión de tareas</string>
     <string name="tasker_broadcast_setting_summary">Mostrar broadcasts que se pueden usar via Tasker</string>
     <string name="reboot_required_dialog_title">Es necesario reiniciar</string>
     <string name="reboot_required_dialog_text">Por favor reinicia tu teléfono para que los cambios surtan efecto</string>
