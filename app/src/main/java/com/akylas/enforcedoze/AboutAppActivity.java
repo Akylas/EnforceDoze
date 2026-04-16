@@ -47,15 +47,15 @@ public class AboutAppActivity extends AppCompatActivity {
     }
 
     public void openSourceCode(View v) {
-        openUrl("https://github.com/farfromrefug/EnforceDoze");
+        Utils.openUrl(this, "https://github.com/farfromrefug/EnforceDoze");
     }
 
     public void openGithubSponsors(View v) {
-        openUrl("https://github.com/sponsors/farfromrefug");
+        Utils.openUrl(this, "https://github.com/sponsors/farfromrefug");
     }
 
     public void openLiberapay(View v) {
-        openUrl("https://liberapay.com/farfromrefuge");
+        Utils.openUrl(this, "https://liberapay.com/farfromrefuge");
     }
 
     public void showTranslationCreditsDialog(View v) {
@@ -67,15 +67,6 @@ public class AboutAppActivity extends AppCompatActivity {
     }
 
     public void showPrivacyPolicy(View v) {
-        openUrl("https://www.akylas.fr/privacy");
-    }
-
-    private void openUrl(String url) {
-        CustomTabs.with(getApplicationContext())
-                .setStyle(new CustomTabs.Style(getApplicationContext())
-                        .setShowTitle(true)
-                        .setExitAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .setToolbarColor(R.color.colorPrimary))
-                .openUrl(url, this);
+        Utils.openUrl(this, "https://www.akylas.fr/privacy");
     }
 }

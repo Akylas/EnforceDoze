@@ -426,12 +426,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference sponsorPref = findPreference("sponsorProject");
             if (sponsorPref != null) {
                 sponsorPref.setOnPreferenceClickListener(preference -> {
-                    CustomTabs.with(getActivity())
-                            .setStyle(new CustomTabs.Style(getActivity())
-                                    .setShowTitle(true)
-                                    .setExitAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                                    .setToolbarColor(R.color.colorPrimary))
-                            .openUrl("https://github.com/sponsors/farfromrefug", getActivity());
+                    Utils.openUrl(getActivity(), "https://github.com/sponsors/farfromrefug");
                     return true;
                 });
             }
