@@ -1,4 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:key="preferenceScreen">
+    <PreferenceCategory android:title="@string/sponsor_card_title">
+        <Preference
+            android:key="sponsorProject"
+            android:title="@string/sponsor_settings_title"
+            android:summary="@string/sponsor_settings_summary"
+            android:icon="@drawable/ic_heart" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Main" android:key="mainSettings">
         <ListPreference
             android:defaultValue="root"

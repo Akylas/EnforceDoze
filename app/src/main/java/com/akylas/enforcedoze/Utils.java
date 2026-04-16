@@ -441,4 +441,14 @@ public class Utils {
         }
     }
 
+
+    public static void openUrl(android.app.Activity activity, String url) {
+        CustomTabs.with(activity.getApplicationContext())
+                .setStyle(new CustomTabs.Style(activity.getApplicationContext())
+                        .setShowTitle(true)
+                        .setExitAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        .setToolbarColor(R.color.colorPrimary))
+                .openUrl(url, activity);
+    }
+
 }

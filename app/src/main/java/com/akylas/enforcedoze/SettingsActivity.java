@@ -423,6 +423,14 @@ public class SettingsActivity extends AppCompatActivity {
             turnOffGPSInDoze.setEnabled(false);
             turnOffGPSInDoze.setSummary(getString(R.string.root_required_text));
 
+            Preference sponsorPref = findPreference("sponsorProject");
+            if (sponsorPref != null) {
+                sponsorPref.setOnPreferenceClickListener(preference -> {
+                    Utils.openUrl(getActivity(), "https://github.com/sponsors/farfromrefug");
+                    return true;
+                });
+            }
+
         }
 
         public void requestWriteSettingsPermission() {

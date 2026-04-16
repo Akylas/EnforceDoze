@@ -20,46 +20,40 @@
             android:layout_height="?attr/actionBarSize"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-<RelativeLayout
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.akylas.enforcedoze.MainActivity">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/switch1"
-        android:layout_marginTop="20dp"
-        android:scrollbars = "vertical"
-        android:gravity="center_horizontal"
-        android:text="@string/force_doze_info"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="18sp" />
-
-    <com.google.android.material.materialswitch.MaterialSwitch
-        android:layout_width="wrap_content"
+    <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/switch1"
-        android:textStyle="bold"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        tools:context="com.akylas.enforcedoze.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/service_inactive"
-        android:id="@+id/textView2"
-        android:textStyle="bold"
-        android:layout_marginTop="26dp"
-        android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface"
+            android:text="@string/service_inactive" />
 
-</RelativeLayout>
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch1"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:gravity="center"
+            android:text="@string/force_doze_info"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

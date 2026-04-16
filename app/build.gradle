@@ -78,7 +78,6 @@ dependencies {
     implementation 'eu.chainfire:libsuperuser:1.1.0.+'
     implementation 'com.fabiendevos:nanotasks:1.1.0'
     implementation 'com.jakewharton:process-phoenix:2.1.2'
-    implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     
     // Shizuku

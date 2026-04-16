@@ -207,4 +207,18 @@
     <string name="shizuku_not_available_error">Shizuku mode is selected but Shizuku is not available. Please install and start Shizuku, or switch to Root mode in settings.</string>
     <string name="copy_tunable_string">Copy tunable string</string>
     <string name="apply">Apply</string>
+
+    <string name="version_format" formatted="false">%1$s (build %2$s)</string>
+    <string name="source_code">Source code</string>
+    <string name="about_open_source_title">Open Source</string>
+    <string name="about_info_legal_title">Info &amp; Legal</string>
+
+    <string name="sponsor_card_title">Support EnforceDoze</string>
+    <string name="sponsor_card_text">EnforceDoze is free, open-source and ad-free. If it saves your battery, consider sponsoring to help keep the project alive and growing!</string>
+    <string name="sponsor_github">GitHub Sponsors</string>
+    <string name="sponsor_liberapay">Liberapay</string>
+    <string name="sponsor_settings_title">Support the project</string>
+    <string name="sponsor_settings_summary">EnforceDoze is free &amp; open-source — consider sponsoring</string>
+
+    <string name="licenses_text">Material Dialogs\nhttps://github.com/afollestad/material-dialogs\nAidan Michael Follestad — MIT License\n\nlibsuperuser\nhttps://github.com/Chainfire/libsuperuser\nChainfire — Apache License 2.0\n\nNanotasks\nhttps://github.com/fabiendevos/nanotasks\nFabien Devos — Apache License 2.0\n\nProcessPhoenix\nhttps://github.com/JakeWharton/ProcessPhoenix\nJake Wharton — Apache License 2.0\n\nSimpleCustomTabs\nhttps://github.com/eliseomartelli/SimpleCustomTabs\nEliseo Martelli — MIT License</string>
 </resources>
