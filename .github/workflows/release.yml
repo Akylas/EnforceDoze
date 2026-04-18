@@ -162,7 +162,8 @@ jobs:
         run: |
           bundle exec fastlane android github create_tag:${{ github.event.inputs.publish }} publish:${{ github.event.inputs.publish }} github:true --verbose
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
       - uses: actions/upload-artifact@v4
         with:
