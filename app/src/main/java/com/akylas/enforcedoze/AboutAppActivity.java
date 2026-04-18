@@ -59,11 +59,8 @@ public class AboutAppActivity extends AppCompatActivity {
     }
 
     public void showTranslationCreditsDialog(View v) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-        builder.setTitle(getString(R.string.translation_credits_dialog_title));
-        builder.setMessage(getString(R.string.translation_credits_dialog_text));
-        builder.setPositiveButton(getString(R.string.okay_button_text), (dialog, i) -> dialog.dismiss());
-        builder.show();
+        Utils.openUrl(this, "https://hosted.weblate.org/engage/enforcedoze");
+
     }
 
     public void showPrivacyPolicy(View v) {
