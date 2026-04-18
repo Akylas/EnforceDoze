@@ -84,13 +84,6 @@
     <string name="donate_dialog_button_text">Quiero donar</string>
     <string name="about_forcedoze_setting_title">Sobre EnforceDoze</string>
     <string name="about_app_opensrc_text">EnforceDoze para Android está desarrollado con software de código abierto:</string>
-\n
-\nEspañol: monza1412 (XDA)
-\nPortuguês-BR: GamerVicioX (GitHub)
-\nRussian: HardSer (GitHub)
-\nGerman: okij (XDA)
-\nChinese (Traditional): osk2 (GitHub)
-\nTurkish: Shepards (XDA)</string>
     <string name="loading_whitelisted_packages">Cargando paquetes de la lista de permitidas...</string>
     <string name="su_perm_denied_msg">¡Permisos de superusuario denegados o no disponibles!</string>
     <string name="auto_rotate_brightness_fix_dialog_title">Corrección de la rotación y el brillo automáticos</string>
