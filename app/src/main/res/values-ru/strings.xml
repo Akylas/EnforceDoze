@@ -192,4 +192,15 @@
     <string name="shizuku_not_available_error">Выбран режим Shizuku, но Shizuku недоступен. Пожалуйста, установите и запустите Shizuku или переключитесь на режим Root в настройках.</string>
     <string name="copy_tunable_string">Копировать строку настроек</string>
     <string name="apply">Применить</string>
+    <string name="version_format" formatted="false">%1$s (сборка %2$s)</string>
+    <string name="source_code">Исходный код</string>
+    <string name="about_open_source_title">Открытый исходный код</string>
+    <string name="about_info_legal_title">Информация / Юридическое</string>
+    <string name="sponsor_card_title">Поддержка EnforceDoze</string>
+    <string name="sponsor_card_text">EnforceDoze — бесплатное, с открытым исходным кодом и без рекламы. Если оно экономит ваш заряд батареи, рассмотрите возможность спонсорства, чтобы помочь проекту жить и развиваться!</string>
+    <string name="sponsor_github">Спонсорство через GitHub</string>
+    <string name="sponsor_liberapay">Поддержка через Liberapay</string>
+    <string name="sponsor_settings_title">Поддержать проект</string>
+    <string name="sponsor_settings_summary">EnforceDoze — бесплатное и с открытым кодом. Поддержите проект!</string>
+    <string name="licenses_text">Material Dialogs\nhttps://github.com/afollestad/material-dialogs\nAidan Michael Follestad — Лицензия MIT\n\nlibsuperuser\nhttps://github.com/Chainfire/libsuperuser\nChainfire — Лицензия Apache 2.0\n\nNanotasks\nhttps://github.com/fabiendevos/nanotasks\nFabien Devos — Лицензия Apache 2.0\n\nProcessPhoenix\nhttps://github.com/JakeWharton/ProcessPhoenix\nJake Wharton — Лицензия Apache 2.0\n\nSimpleCustomTabs\nhttps://github.com/eliseomartelli/SimpleCustomTabs\nEliseo Martelli — Лицензия MIT</string>
 </resources>
