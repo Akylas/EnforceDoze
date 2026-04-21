@@ -192,4 +192,10 @@
     <string name="disable_gps_setting_summary">Изключване на GPS/местоположение докато устройството е в режим Doze</string>
     <string name="copy_tunable_string">Копиране на настройка</string>
     <string name="apply">Прилагане</string>
+    <string name="version_format" formatted="false">%1$s (компилация %2$s)</string>
+    <string name="source_code">Изходен код</string>
+    <string name="about_open_source_title">Свободен изходен код</string>
+    <string name="about_info_legal_title">Информация и правни</string>
+    <string name="sponsor_card_title">Поддръжка на EnforceDoze</string>
+    <string name="sponsor_card_text">EnforceDoze е приложение с отворен код и без реклами. Ако пести батерията ви, обмислете да станете дарител, за да помогнете на проекта да продължи да съществува и да се развива!</string>
 </resources>
