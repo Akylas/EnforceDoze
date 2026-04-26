@@ -4,8 +4,8 @@
     <string name="service_inactive">Услугата EnforceDoze е изключена</string>
     <string name="service_active">Услугата EnforceDoze е включена</string>
     <string name="service_disabled">Услугата EnforceDoze забранена</string>
-    <string name="root_workaround_button_text">Заобиколен път (със SU)</string>
-    <string name="no_root_workaround_dialog_title">Заобиколен път (без SU)</string>
+    <string name="root_workaround_button_text">Заобикаляне с права на супер потребителя</string>
+    <string name="no_root_workaround_dialog_title">Без заобикаляне с права на супер потребителя</string>
     <string name="root_workaround_text">Достъпът до правата на суперпотребителя е отказан или липсва! Ако липсва такъв, докоснете „Заобиколен път (със SU)“, за да получите инструкции как да включите режима без достъп до суперпотребителя</string>
     <string name="close_button_text">Затваряне</string>
     <string name="more_info_text">Подробности</string>
@@ -198,4 +198,9 @@
     <string name="about_info_legal_title">Информация и правни</string>
     <string name="sponsor_card_title">Поддръжка на EnforceDoze</string>
     <string name="sponsor_card_text">EnforceDoze е приложение с отворен код и без реклами. Ако пести батерията ви, обмислете да станете дарител, за да помогнете на проекта да продължи да съществува и да се развива!</string>
+    <string name="sponsor_github">Спонсори през GitHub</string>
+    <string name="sponsor_liberapay">Поддръжка чрез Liberapay</string>
+    <string name="sponsor_settings_title">Поддържане на проекта</string>
+    <string name="sponsor_settings_summary">EnforceDoze е безплатно приложение с отворен код — обмислете възможността да дарите</string>
+    <string name="licenses_text">Material Dialogs\nhttps://github.com/afollestad/material-dialogs\nЕйдън Майкъл Фолестад — Лиценз на МТИ\n\nlibsuperuser\nhttps://github.com/Chainfire/libsuperuser\nChainfire — Лиценз Apache 2.0\n\nNanotasks\nhttps://github.com/fabiendevos/nanotasks\nФабиен Девос — Лиценз Apache 2.0\n\nProcessPhoenix\nhttps://github.com/JakeWharton/ProcessPhoenix\nДжейк Уортън — Лиценз Apache 2.0\n\nSimpleCustomTabs\nhttps://github.com/eliseomartelli/SimpleCustomTabs\nЕлисео Мартели — Лиценз на МИТ</string>
 </resources>
