@@ -225,4 +225,21 @@
     <string name="sponsor_settings_summary">EnforceDoze is free &amp; open-source — consider sponsoring</string>
 
     <string name="licenses_text">Material Dialogs\nhttps://github.com/afollestad/material-dialogs\nAidan Michael Follestad — MIT License\n\nlibsuperuser\nhttps://github.com/Chainfire/libsuperuser\nChainfire — Apache License 2.0\n\nNanotasks\nhttps://github.com/fabiendevos/nanotasks\nFabien Devos — Apache License 2.0\n\nProcessPhoenix\nhttps://github.com/JakeWharton/ProcessPhoenix\nJake Wharton — Apache License 2.0\n\nSimpleCustomTabs\nhttps://github.com/eliseomartelli/SimpleCustomTabs\nEliseo Martelli — MIT License</string>
+
+    <!-- Main screen buttons -->
+    <string name="btn_settings">Settings</string>
+    <string name="btn_doze_tunables">Doze Tunables</string>
+    <string name="btn_battery_stats">Battery Stats</string>
+    <string name="btn_enable_toggle">Enable EnforceDoze</string>
+    <string name="doze_unsupported_btn_text">Enable Doze on unsupported device</string>
+
+    <!-- Settings sub-screen titles and summaries -->
+    <string name="settings_general_title">General</string>
+    <string name="settings_general_summary">Service behaviour &amp; notifications</string>
+    <string name="settings_doze_enhancements_title">Doze Enhancements</string>
+    <string name="settings_doze_enhancements_summary">Additional battery-saving features during Doze</string>
+    <string name="settings_scheduling_title">Scheduling</string>
+    <string name="settings_scheduling_summary">Control when EnforceDoze runs</string>
+    <string name="settings_advanced_title">Advanced</string>
+    <string name="settings_advanced_summary">Diagnostics, reset &amp; other options</string>
 </resources>

@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -36,7 +37,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.text.SpannableString;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     boolean isDumpPermGranted = false;
     boolean isWriteSecureSettingsPermGranted = false;
     boolean ignoreLockscreenTimeout = true;
-//    boolean showDonateDevDialog = true;
     SwitchCompat toggleForceDozeSwitch;
     MaterialDialog progressDialog = null;
     TextView textViewStatus;
     CoordinatorLayout coordinatorLayout;
     ShizukuHandler shizukuHandler;
+    com.google.android.material.button.MaterialButton btnEnableDozeUnsupported;
 
     private static void log(String message) {
         logToLogcat(TAG, message);
@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         CustomTabs.with(getApplicationContext()).warm();
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         isDozeEnabledByOEM = Utils.checkForAutoPowerModesFlag();
-//        showDonateDevDialog = settings.getBoolean("showDonateDevDialog2", true);
         isDozeDisabled = settings.getBoolean("isDozeDisabled", false);
         isSuAvailable = settings.getBoolean("isSuAvailable", false);
         ignoreLockscreenTimeout = settings.getBoolean("ignoreLockscreenTimeout", true);
@@ -133,8 +132,21 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         textViewStatus = (TextView) findViewById(R.id.textView2);
         updateStateFromTile = new UpdateForceDozeEnabledState();
         LocalBroadcastManager.getInstance(this).registerReceiver(updateStateFromTile, new IntentFilter("update-state-from-tile"));
-        ((TextView) findViewById(R.id.textView)).setMovementMethod(new ScrollingMovementMethod());
         toggleForceDozeSwitch.setOnCheckedChangeListener(null);
+
+        // Wire action buttons
+        findViewById(R.id.btnSettings).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
+        findViewById(R.id.btnDozeTunables).setOnClickListener(v -> showDozeTunablesActivity());
+        findViewById(R.id.btnMoreInfo).setOnClickListener(v -> showMoreInfoDialog());
+        findViewById(R.id.btnBatteryStats).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, DozeBatteryStatsActivity.class)));
+        btnEnableDozeUnsupported = findViewById(R.id.btnEnableDozeUnsupported);
+        btnEnableDozeUnsupported.setOnClickListener(v -> showEnableDozeOnUnsupportedDeviceDialog());
+        // Show the unsupported-device button only when Doze is OEM-disabled
+        if (!isDozeEnabledByOEM) {
+            btnEnableDozeUnsupported.setVisibility(android.view.View.VISIBLE);
+        }
 
         if (!Utils.isPostNotificationPermissionGranted(this)) {
             requestNotificationPermission();
@@ -477,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         isDumpPermGranted = Utils.isDumpPermissionGranted(getApplicationContext());
 
         if (isDozeEnabledByOEM || (Utils.isDeviceRunningOnN() && !isSuAvailable)) {
-            menu.getItem(2).setVisible(false);
+            menu.getItem(0).setVisible(false);
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -494,16 +506,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         int id = item.getItemId();
         if (id == R.id.action_toggle_doze) {
             showEnableDozeOnUnsupportedDeviceDialog();
-        } else if (id == R.id.action_donate_dev) {
-            openDonatePage();
-        } else if (id == R.id.action_doze_batterystats) {
-            startActivity(new Intent(MainActivity.this, DozeBatteryStatsActivity.class));
-        } else if (id == R.id.action_app_settings) {
-            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-        } else if (id == R.id.action_doze_more_info) {
-            showMoreInfoDialog();
-        } else if (id == R.id.action_show_doze_tunables) {
-            showDozeTunablesActivity();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -561,15 +563,6 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         } else {
             startActivity(new Intent(MainActivity.this, DozeTunablesActivity.class));
         }
-    }
-
-    public void openDonatePage() {
-        CustomTabs.with(getApplicationContext())
-                .setStyle(new CustomTabs.Style(getApplicationContext())
-                        .setShowTitle(true)
-                        .setExitAnimation(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .setToolbarColor(R.color.colorPrimary))
-                .openUrl("https://github.com/farfromrefug", this);
     }
 
     public void showEnableDozeOnUnsupportedDeviceDialog() {
