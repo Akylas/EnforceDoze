@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.app.TimePickerDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,11 @@ import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -199,6 +205,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference resetForceDozePref = (Preference) findPreference("resetForceDoze");
             Preference clearDozeStats = (Preference) findPreference("resetDozeStats");
             Preference dozeDelay = (Preference) findPreference("dozeEnterDelay");
+            Preference customDozePeriods = (Preference) findPreference("customDozePeriods");
             Preference showPersistentNotif = (Preference) findPreference("showPersistentNotif");
             Preference usePermanentDoze = (Preference) findPreference("usePermanentDoze");
             Preference dozeNotificationBlocklist = (Preference) findPreference("blacklistAppNotifications");
@@ -213,6 +220,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
             sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+            updateCustomDozePeriodsSummary(customDozePeriods, sharedPreferences);
 
             resetForceDozePref.setOnPreferenceClickListener(preference -> {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
@@ -265,6 +273,11 @@ public class SettingsActivity extends AppCompatActivity {
                     builder.setPositiveButton(getString(R.string.okay_button_text), (dialogInterface, i) -> dialogInterface.dismiss());
                     builder.show();
                 }
+                return true;
+            });
+
+            customDozePeriods.setOnPreferenceClickListener(preference -> {
+                showCustomDozePeriodsDialog(sharedPreferences, customDozePeriods);
                 return true;
             });
 
@@ -427,6 +440,99 @@ public class SettingsActivity extends AppCompatActivity {
             });
             builder.setNegativeButton(getString(R.string.deny_button_text), (dialogInterface, i) -> dialogInterface.dismiss());
             builder.show();
+        }
+
+        private void showCustomDozePeriodsDialog(SharedPreferences sharedPreferences, Preference preference) {
+            ArrayList<String> periods = getSortedCustomDozePeriods(sharedPreferences);
+            ArrayList<String> items = new ArrayList<>(periods);
+            items.add(getString(R.string.add_custom_doze_period_button));
+
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+            builder.setTitle(getString(R.string.custom_doze_periods_setting_title));
+            builder.setItems(items.toArray(new String[0]), (dialogInterface, which) -> {
+                dialogInterface.dismiss();
+                if (which == periods.size()) {
+                    showStartTimePicker(sharedPreferences, preference);
+                } else {
+                    showRemoveCustomDozePeriodDialog(sharedPreferences, preference, periods.get(which));
+                }
+            });
+            builder.setNegativeButton(getString(R.string.close_button_text), (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.show();
+        }
+
+        private void showRemoveCustomDozePeriodDialog(SharedPreferences sharedPreferences, Preference preference, String period) {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+            builder.setTitle(period);
+            builder.setMessage(getString(R.string.remove_custom_doze_period_dialog_text));
+            builder.setPositiveButton(getString(R.string.remove_menu_item), (dialogInterface, i) -> {
+                ArrayList<String> periods = getSortedCustomDozePeriods(sharedPreferences);
+                periods.remove(period);
+                saveCustomDozePeriods(sharedPreferences, preference, periods);
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton(getString(R.string.no_button_text), (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.show();
+        }
+
+        private void showStartTimePicker(SharedPreferences sharedPreferences, Preference preference) {
+            TimePickerDialog dialog = new TimePickerDialog(getActivity(), (view, hourOfDay, minute) ->
+                    showEndTimePicker(sharedPreferences, preference, hourOfDay, minute), 22, 0, true);
+            dialog.setTitle(getString(R.string.custom_doze_period_start_title));
+            dialog.show();
+        }
+
+        private void showEndTimePicker(SharedPreferences sharedPreferences, Preference preference, int startHour, int startMinute) {
+            TimePickerDialog dialog = new TimePickerDialog(getActivity(), (view, hourOfDay, minute) -> {
+                int start = startHour * 60 + startMinute;
+                int end = hourOfDay * 60 + minute;
+                if (start == end) {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+                    builder.setTitle(getString(R.string.error_text));
+                    builder.setMessage(getString(R.string.custom_doze_period_same_time_error));
+                    builder.setPositiveButton(getString(R.string.okay_button_text), (dialogInterface, i) -> dialogInterface.dismiss());
+                    builder.show();
+                    return;
+                }
+
+                ArrayList<String> periods = getSortedCustomDozePeriods(sharedPreferences);
+                periods.add(formatTime(startHour, startMinute) + "-" + formatTime(hourOfDay, minute));
+                saveCustomDozePeriods(sharedPreferences, preference, periods);
+            }, 7, 0, true);
+            dialog.setTitle(getString(R.string.custom_doze_period_end_title));
+            dialog.show();
+        }
+
+        private ArrayList<String> getSortedCustomDozePeriods(SharedPreferences sharedPreferences) {
+            Set<String> periodSet = sharedPreferences.getStringSet("customDozePeriods", new LinkedHashSet<String>());
+            ArrayList<String> periods = new ArrayList<>(periodSet);
+            Collections.sort(periods);
+            return periods;
+        }
+
+        private void saveCustomDozePeriods(SharedPreferences sharedPreferences, Preference preference, ArrayList<String> periods) {
+            sharedPreferences.edit()
+                    .putStringSet("customDozePeriods", new LinkedHashSet<>(periods))
+                    .apply();
+            updateCustomDozePeriodsSummary(preference, sharedPreferences);
+            Utils.scheduleNextCustomDozePeriodBoundary(getActivity());
+            reloadSettings(getActivity());
+        }
+
+        private void updateCustomDozePeriodsSummary(Preference preference, SharedPreferences sharedPreferences) {
+            if (preference == null) {
+                return;
+            }
+            ArrayList<String> periods = getSortedCustomDozePeriods(sharedPreferences);
+            if (periods.isEmpty()) {
+                preference.setSummary(getString(R.string.custom_doze_periods_setting_summary_empty));
+            } else {
+                preference.setSummary(getString(R.string.custom_doze_periods_setting_summary, android.text.TextUtils.join(", ", periods)));
+            }
+        }
+
+        private String formatTime(int hour, int minute) {
+            return String.format(Locale.US, "%02d:%02d", hour, minute);
         }
 
         final int POST_NOTIF_PERMISSION_REQUEST_CODE =112;
@@ -667,6 +773,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, @Nullable String key) {
+            if ("customDozePeriods".equals(key)) {
+                updateCustomDozePeriodsSummary(findPreference("customDozePeriods"), sharedPreferences);
+            }
             if (getActivity() != null) {
                 reloadSettings(getActivity());
             }

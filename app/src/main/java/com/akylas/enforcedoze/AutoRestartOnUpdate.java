@@ -20,17 +20,11 @@ public class AutoRestartOnUpdate extends BroadcastReceiver {
             log("Application updated, restarting service if enabled");
             boolean isServiceEnabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("serviceEnabled", false);
             if (isServiceEnabled) {
-                if (Utils.isMyServiceRunning(ForceDozeService.class, context)) {
-                    context.stopService(new Intent(context, ForceDozeService.class));
-                    context.startService(new Intent(context, ForceDozeService.class));
-                } else if (!Utils.isMyServiceRunning(ForceDozeService.class, context)) {
-                    context.startService(new Intent(context, ForceDozeService.class));
-                }
+                Utils.stopForceDozeService(context);
+                Utils.startForceDozeService(context);
             } else {
                 log("Service not enabled, skip restarting");
             }
-            // Update tile state
-            Utils.updateTileState(context);
         }
     }
 }

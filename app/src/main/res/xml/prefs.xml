@@ -125,6 +125,10 @@
             android:summary="@string/doze_delay_setting_summary"
             android:title="@string/doze_delay_setting_title" />
         <Preference
+            android:key="customDozePeriods"
+            android:summary="@string/custom_doze_periods_setting_summary_empty"
+            android:title="@string/custom_doze_periods_setting_title" />
+        <Preference
             android:key="blacklistAppNotifications"
             android:summary="@string/notif_blocklist_setting_summary"
             android:title="@string/notif_blocklist_setting_title">

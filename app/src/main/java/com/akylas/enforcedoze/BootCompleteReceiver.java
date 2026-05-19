@@ -18,13 +18,11 @@ public class BootCompleteReceiver extends BroadcastReceiver {
         boolean isServiceEnabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("serviceEnabled", false);
         log("Received BOOT_COMPLETED intent, isServiceEnabled=" + Boolean.toString(isServiceEnabled));
         if (isServiceEnabled) {
-            Intent startServiceIntent = new Intent(context, ForceDozeService.class);
-            context.startService(startServiceIntent);
+            Utils.startForceDozeService(context);
         } else {
             // Show disabled notification if EnforceDoze is disabled on startup
-            Utils.showDisabledNotification(context);
+            Utils.stopForceDozeService(context);
         }
-        // Update tile state
-        Utils.updateTileState(context);
+        Utils.scheduleNextCustomDozePeriodBoundary(context);
     }
 }

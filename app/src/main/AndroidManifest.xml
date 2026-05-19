@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -113,6 +111,10 @@
             android:name="com.akylas.enforcedoze.ReenterDoze"
             android:enabled="true"
             android:exported="true" />
+        <receiver
+            android:name="com.akylas.enforcedoze.CustomDozePeriodReceiver"
+            android:enabled="true"
+            android:exported="false" />
         <service
             android:name="com.akylas.enforcedoze.ForceDozeService"
             android:enabled="true"

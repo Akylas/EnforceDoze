@@ -1,7 +1,6 @@
 package com.akylas.enforcedoze;
 
 import static com.akylas.enforcedoze.Utils.logToLogcat;
-import static com.akylas.enforcedoze.Utils.startForceDozeService;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -261,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                             toggleForceDozeSwitch.setChecked(true);
                             if (!Utils.isMyServiceRunning(ForceDozeService.class, MainActivity.this)) {
                                 log("Starting ForceDozeService");
-                                startForceDozeService(context);
+                                Utils.startForceDozeService(context);
                             } else {
                                 log("Service already running");
                             }
@@ -519,11 +518,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             textViewStatus.setText(R.string.service_active);
             if (!Utils.isMyServiceRunning(ForceDozeService.class, MainActivity.this)) {
                 log("Enabling ForceDoze");
-                startService(new Intent(MainActivity.this, ForceDozeService.class));
+                Utils.startForceDozeService(MainActivity.this);
             }
             showForceDozeActiveDialog();
-            // Hide disabled notification
-            Utils.hideDisabledNotification(getApplicationContext());
         } else {
             editor = settings.edit();
             editor.putBoolean("serviceEnabled", false);
@@ -532,10 +529,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             textViewStatus.setText(R.string.service_inactive);
             if (Utils.isMyServiceRunning(ForceDozeService.class, MainActivity.this)) {
                 log("Disabling ForceDoze");
-                stopService(new Intent(MainActivity.this, ForceDozeService.class));
+                Utils.stopForceDozeService(MainActivity.this);
             }
-            // Show disabled notification
-            Utils.showDisabledNotification(getApplicationContext());
         }
 
         if (Utils.isDeviceRunningOnN()) {

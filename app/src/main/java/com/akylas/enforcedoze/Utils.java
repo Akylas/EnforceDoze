@@ -36,6 +36,8 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.BATTERY_SERVICE;
@@ -48,8 +50,15 @@ public class Utils {
 
     private static final int DISABLED_NOTIFICATION_ID = 9876;
     private static final String CHANNEL_DISABLED = "CHANNEL_DISABLED";
+    public static final String ACTION_CUSTOM_DOZE_PERIOD_BOUNDARY = "com.akylas.enforcedoze.ACTION_CUSTOM_DOZE_PERIOD_BOUNDARY";
+    private static final int CUSTOM_DOZE_PERIOD_REQUEST_CODE = 9012;
 
     public static void startForceDozeService(Context context) {
+        if (isMyServiceRunning(ForceDozeService.class, context)) {
+            logToLogcat("EnforceDoze", "ForceDozeService already running");
+            return;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent i = new Intent(context, ForceDozeService.class);
@@ -57,9 +66,194 @@ public class Utils {
 
             if (mgr.canScheduleExactAlarms()) {
                 mgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 200 ,pi);
+            } else {
+                context.startForegroundService(i);
             }
         } else {
             context.startService(new Intent(context, ForceDozeService.class));
+        }
+
+        // Hide disabled notification
+        Utils.hideDisabledNotification(context);
+        // Update tile state
+        Utils.updateTileState(context);
+    }
+
+    public static void stopForceDozeService(Context context) {
+        if (isMyServiceRunning(ForceDozeService.class, context)) {
+            context.stopService(new Intent(context, ForceDozeService.class));
+        }
+
+        // Hide disabled notification
+        Utils.showDisabledNotification(context);
+        // Update tile state
+        Utils.updateTileState(context);
+    }
+
+    public static void applyForceDozeSchedule(Context context) {
+        boolean isServiceEnabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("serviceEnabled", false);
+        // if (!isServiceEnabled) {
+        //     cancelCustomDozePeriodAlarm(context);
+        //     if (isMyServiceRunning(ForceDozeService.class, context)) {
+        //         context.stopService(new Intent(context, ForceDozeService.class));
+        //     }
+        //     return;
+        // }
+
+        scheduleNextCustomDozePeriodBoundary(context);
+        boolean shouldRunService = isInsideCustomDozePeriod(context);
+
+        if (shouldRunService) {
+            updateSettingBool(context, "serviceEnabled", true);
+            startForceDozeService(context);
+        } else {
+            updateSettingBool(context, "serviceEnabled", false);
+            stopForceDozeService(context);
+        }
+    }
+
+    public static void scheduleNextCustomDozePeriodBoundary(Context context) {
+        cancelCustomDozePeriodAlarm(context);
+        if (!hasCustomDozePeriods(context)) {
+            return;
+        }
+
+        long delay = getMillisUntilNextCustomDozePeriodBoundary(context);
+        if (delay < 0) {
+            return;
+        }
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = getCustomDozePeriodPendingIntent(context);
+        long triggerAtMillis = System.currentTimeMillis() + delay;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+            }
+        } catch (SecurityException e) {
+            logToLogcat("EnforceDoze", "Exact custom period alarm not allowed, using inexact alarm");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, pendingIntent);
+            }
+        }
+    }
+
+    public static void cancelCustomDozePeriodAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(getCustomDozePeriodPendingIntent(context));
+    }
+
+    public static boolean hasCustomDozePeriods(Context context) {
+        return !getCustomDozePeriods(context).isEmpty();
+    }
+
+    public static boolean isInsideCustomDozePeriod(Context context) {
+        Set<String> customDozePeriods = getCustomDozePeriods(context);
+        if (customDozePeriods.isEmpty()) {
+            return true;
+        }
+
+        int now = getCurrentMinuteOfDay();
+        for (String period : customDozePeriods) {
+            int[] parsedPeriod = parseCustomDozePeriod(period);
+            if (parsedPeriod == null) {
+                continue;
+            }
+
+            int start = parsedPeriod[0];
+            int end = parsedPeriod[1];
+            if (start < end && now >= start && now < end) {
+                return true;
+            } else if (start > end && (now >= start || now < end)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static PendingIntent getCustomDozePeriodPendingIntent(Context context) {
+        Intent intent = new Intent(context, CustomDozePeriodReceiver.class);
+        intent.setAction(ACTION_CUSTOM_DOZE_PERIOD_BOUNDARY);
+        return PendingIntent.getBroadcast(context, CUSTOM_DOZE_PERIOD_REQUEST_CODE, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    private static Set<String> getCustomDozePeriods(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getStringSet("customDozePeriods", new LinkedHashSet<String>());
+    }
+
+    private static long getMillisUntilNextCustomDozePeriodBoundary(Context context) {
+        Calendar now = Calendar.getInstance();
+        long nowMillis = now.getTimeInMillis();
+        long nextBoundaryMillis = Long.MAX_VALUE;
+
+        for (String period : getCustomDozePeriods(context)) {
+            int[] parsedPeriod = parseCustomDozePeriod(period);
+            if (parsedPeriod == null) {
+                continue;
+            }
+            nextBoundaryMillis = Math.min(nextBoundaryMillis, getNextBoundaryMillis(now, parsedPeriod[0]));
+            nextBoundaryMillis = Math.min(nextBoundaryMillis, getNextBoundaryMillis(now, parsedPeriod[1]));
+        }
+
+        if (nextBoundaryMillis == Long.MAX_VALUE) {
+            return -1;
+        }
+        return Math.max(1000, nextBoundaryMillis - nowMillis);
+    }
+
+    private static long getNextBoundaryMillis(Calendar now, int minuteOfDay) {
+        Calendar boundary = (Calendar) now.clone();
+        boundary.set(Calendar.HOUR_OF_DAY, minuteOfDay / 60);
+        boundary.set(Calendar.MINUTE, minuteOfDay % 60);
+        boundary.set(Calendar.SECOND, 0);
+        boundary.set(Calendar.MILLISECOND, 0);
+        if (!boundary.after(now)) {
+            boundary.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        return boundary.getTimeInMillis();
+    }
+
+    private static int getCurrentMinuteOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE);
+    }
+
+    private static int[] parseCustomDozePeriod(String period) {
+        if (period == null) {
+            return null;
+        }
+        String[] parts = period.split("-");
+        if (parts.length != 2) {
+            return null;
+        }
+        int start = parseCustomDozeTime(parts[0]);
+        int end = parseCustomDozeTime(parts[1]);
+        if (start < 0 || end < 0 || start == end) {
+            return null;
+        }
+        return new int[]{start, end};
+    }
+
+    private static int parseCustomDozeTime(String time) {
+        String[] parts = time.split(":");
+        if (parts.length != 2) {
+            return -1;
+        }
+        try {
+            int hour = Integer.parseInt(parts[0]);
+            int minute = Integer.parseInt(parts[1]);
+            if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+                return -1;
+            }
+            return hour * 60 + minute;
+        } catch (NumberFormatException e) {
+            return -1;
         }
     }
 

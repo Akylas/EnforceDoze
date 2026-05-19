@@ -334,8 +334,10 @@ public class ForceDozeService extends Service {
             nonRootSession.close();
             nonRootSession = null;
         }
-        // Show disabled notification when service is destroyed
-        Utils.showDisabledNotification(getApplicationContext());
+        // Show disabled notification only when the user disabled EnforceDoze, not when a schedule stops the service.
+        if (!PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("serviceEnabled", false)) {
+            Utils.showDisabledNotification(getApplicationContext());
+        }
         // Update tile state
         Utils.updateTileState(getApplicationContext());
     }
@@ -583,6 +585,10 @@ public class ForceDozeService extends Service {
     }
 
     public void enterDoze(Context context) {
+        if (!Utils.isInsideCustomDozePeriod(context)) {
+            log("Outside custom Doze periods, skip entering Doze");
+            return;
+        }
         if (!getDeviceIdleState().equals("IDLE") || !lastKnownState.equals("IDLE")) {
             if (!Utils.isScreenOn(context)) {
                 lastKnownState = "IDLE";
@@ -738,6 +744,7 @@ public class ForceDozeService extends Service {
         }
 
     }
+
     public void executeCommand(final String command) {
         executeCommand(command, null, false);
     }

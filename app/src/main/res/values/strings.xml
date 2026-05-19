@@ -63,6 +63,14 @@
     <string name="wait_unlock_setting_title">Wait for unlock to leave doze</string>
     <string name="doze_delay_setting_summary">Add a delay before Doze mode kicks in after screen-off</string>
     <string name="doze_delay_setting_title">Doze delay</string>
+    <string name="custom_doze_periods_setting_title">Custom Doze periods</string>
+    <string name="custom_doze_periods_setting_summary_empty">No custom periods. EnforceDoze can run at any time.</string>
+    <string name="custom_doze_periods_setting_summary" formatted="false">Active during: %1$s</string>
+    <string name="add_custom_doze_period_button">Add period</string>
+    <string name="custom_doze_period_start_title">Start time</string>
+    <string name="custom_doze_period_end_title">End time</string>
+    <string name="remove_custom_doze_period_dialog_text">Remove this custom Doze period?</string>
+    <string name="custom_doze_period_same_time_error">Start and end times must be different.</string>
     <string name="whitelist_apps_setting_summary">Whitelist apps from Doze mode</string>
     <string name="whitelist_apps_setting_text">Whitelist apps</string>
     <string name="reset_forcedoze_setting_summary">Reset EnforceDoze to the default state</string>
