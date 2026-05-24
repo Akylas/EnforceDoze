@@ -99,4 +99,12 @@
     <string name="doze_stats_battery_icon_meaning_dialog_text">O ícone de pilha com um raio indica que o uso de pilha durante a sessão dormitar está dentro dos limites aceitáveis, o ícone de pilha com um ponto de exclamação indica que o uso de pilha durante a sessão dormitar excedeu os limites aceitáveis. Se o uso de pilha em qualquer sessão dormitar se encontrar acima dos limites aceitáveis, é aconselhável que execute o GSAM ou alguma outra app de estatísticas de pilha para investigar a causa da drenagem</string>
     <string name="clearing_doze_stats_text">A apagar estatísticas dormitar...</string>
     <string name="tile_label">ForzeDoze</string>
+    <string name="doze_unsupported_more_info">Alguns dispositivos têm o modo Doze desativado pelo fabricante. Esta opção pode ativar o modo Doze em dispositivos que não têm ativado por predefinição\n\nNota: precisa de ativar esta opção todas as vezes que reiniciar o seu telefone.</string>
+    <string name="okay_button_text">Está bem</string>
+    <string name="copy_command_button_text">Copiar Comando</string>
+    <string name="whitelisting_text">Lista de inclusão</string>
+    <string name="whitelisted_apps_restrictions_text">"Uma app na lista de inclusão pode aceder a rede e ter os seus wake locks permitidos durante o modo Doze. Contudo, as outras restrições continuarão para os apps na lista de inclusão, assim como para as outras apps. Por exemplo, as tarefas de sincronização dos aplicativos na lista de inclusão são adiadas e os seus alarmes regulares não são ativados. "</string>
+    <string name="app_not_whitelisted_text">A app que está a tentar adicionar não se encontra na lista</string>
+    <string name="disable_motion_sensors_setting_title">Desativar os sensores de movimento quando o ecrã está desligado</string>
+    <string name="disable_motion_sensors_setting_summary">Desativar sensores de movimento do dispositivo quando o dispositivo entrar no modo Doze</string>
 </resources>
