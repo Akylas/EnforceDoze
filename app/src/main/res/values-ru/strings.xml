@@ -203,4 +203,12 @@
     <string name="sponsor_settings_title">Поддержать проект</string>
     <string name="sponsor_settings_summary">EnforceDoze — бесплатное и с открытым кодом. Поддержите проект!</string>
     <string name="licenses_text">Material Dialogs\nhttps://github.com/afollestad/material-dialogs\nAidan Michael Follestad — Лицензия MIT\n\nlibsuperuser\nhttps://github.com/Chainfire/libsuperuser\nChainfire — Лицензия Apache 2.0\n\nNanotasks\nhttps://github.com/fabiendevos/nanotasks\nFabien Devos — Лицензия Apache 2.0\n\nProcessPhoenix\nhttps://github.com/JakeWharton/ProcessPhoenix\nJake Wharton — Лицензия Apache 2.0\n\nSimpleCustomTabs\nhttps://github.com/eliseomartelli/SimpleCustomTabs\nEliseo Martelli — Лицензия MIT</string>
+    <string name="custom_doze_periods_setting_title">Настраиваемые периоды Doze</string>
+    <string name="custom_doze_periods_setting_summary_empty">Нет настраиваемых периодов. EnforceDoze будет работать в любое время.</string>
+    <string name="custom_doze_periods_setting_summary" formatted="false">Активен в течение: %1$s</string>
+    <string name="add_custom_doze_period_button">Добавить период</string>
+    <string name="custom_doze_period_start_title">Время начала</string>
+    <string name="custom_doze_period_end_title">Время окончания</string>
+    <string name="remove_custom_doze_period_dialog_text">Удалить этот период Doze?</string>
+    <string name="custom_doze_period_same_time_error">Время начала и окончания должны быть разными.</string>
 </resources>
