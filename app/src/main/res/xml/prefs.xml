@@ -1,4 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:key="preferenceScreen">
+
+    <!-- Sponsor / Donate at top of root settings -->
     <PreferenceCategory android:title="@string/sponsor_card_title">
         <Preference
             android:key="sponsorProject"
@@ -6,7 +8,13 @@
             android:summary="@string/sponsor_settings_summary"
             android:icon="@drawable/ic_heart" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Main" android:key="mainSettings">
+
+    <!-- Sub-screen: General -->
+    <PreferenceScreen
+        android:key="generalSettings"
+        android:title="@string/settings_general_title"
+        android:summary="@string/settings_general_summary"
+        android:icon="@drawable/ic_settings_applications_white_24dp">
         <ListPreference
             android:defaultValue="root"
             android:entries="@array/execution_mode_entries"
@@ -20,10 +28,15 @@
             android:summary="@string/disable_when_charging_setting_summary"
             android:title="@string/disable_when_charging_setting_title" />
         <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="ignoreLockscreenTimeout"
+            android:summary="@string/lockscreen_timeout_setting_summary"
+            android:title="@string/lockscreen_timeout_setting_title" />
+        <SwitchPreferenceCompat
             android:defaultValue="false"
-            android:key="autoRotateAndBrightnessFix"
-            android:summary="@string/rotate_brightness_fix_setting_summary"
-            android:title="@string/rotate_brightness_fix_setting_title" />
+            android:key="waitForUnlock"
+            android:summary="@string/wait_unlock_setting_summary"
+            android:title="@string/wait_unlock_setting_title" />
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="showPersistentNotif"
@@ -35,15 +48,10 @@
             android:summary="@string/show_disabled_notification_setting_summary"
             android:title="@string/show_disabled_notification_setting_title" />
         <SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="ignoreLockscreenTimeout"
-            android:summary="@string/lockscreen_timeout_setting_summary"
-            android:title="@string/lockscreen_timeout_setting_title" />
-        <SwitchPreferenceCompat
             android:defaultValue="false"
-            android:key="waitForUnlock"
-            android:summary="@string/wait_unlock_setting_summary"
-            android:title="@string/wait_unlock_setting_title" />
+            android:key="autoRotateAndBrightnessFix"
+            android:summary="@string/rotate_brightness_fix_setting_summary"
+            android:title="@string/rotate_brightness_fix_setting_title" />
         <Preference
             android:key="whitelistAppsFromDozeMode"
             android:summary="@string/whitelist_apps_setting_summary"
@@ -53,8 +61,14 @@
                 android:targetClass="com.akylas.enforcedoze.WhitelistAppsActivity"
                 android:targetPackage="com.akylas.enforcedoze" />
         </Preference>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Doze enhancements" android:key="dozeSettings">
+    </PreferenceScreen>
+
+    <!-- Sub-screen: Doze Enhancements -->
+    <PreferenceScreen
+        android:key="dozeSettings"
+        android:title="@string/settings_doze_enhancements_title"
+        android:summary="@string/settings_doze_enhancements_summary"
+        android:icon="@drawable/ic_power_settings_new_white_24dp">
         <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="turnOffWiFiInDoze"
@@ -115,19 +129,6 @@
             android:key="turnOnBatterySaverInDoze"
             android:summary="@string/enable_battery_saver_setting_summary"
             android:title="@string/enable_battery_saver_setting_title" />
-        <com.akylas.enforcedoze.NumberPickerPreference
-            bindSummary="false"
-            max="1800"
-            min="0"
-            step="30"
-            android:defaultValue="0"
-            android:key="dozeEnterDelay"
-            android:summary="@string/doze_delay_setting_summary"
-            android:title="@string/doze_delay_setting_title" />
-        <Preference
-            android:key="customDozePeriods"
-            android:summary="@string/custom_doze_periods_setting_summary_empty"
-            android:title="@string/custom_doze_periods_setting_title" />
         <Preference
             android:key="blacklistAppNotifications"
             android:summary="@string/notif_blocklist_setting_summary"
@@ -146,8 +147,35 @@
                 android:targetClass="com.akylas.enforcedoze.BlockAppsActivity"
                 android:targetPackage="com.akylas.enforcedoze" />
         </Preference>
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Other">
+    </PreferenceScreen>
+
+    <!-- Sub-screen: Scheduling -->
+    <PreferenceScreen
+        android:key="schedulingSettings"
+        android:title="@string/settings_scheduling_title"
+        android:summary="@string/settings_scheduling_summary"
+        android:icon="@drawable/ic_info_outline_white_24dp">
+        <com.akylas.enforcedoze.NumberPickerPreference
+            bindSummary="false"
+            max="1800"
+            min="0"
+            step="30"
+            android:defaultValue="0"
+            android:key="dozeEnterDelay"
+            android:summary="@string/doze_delay_setting_summary"
+            android:title="@string/doze_delay_setting_title" />
+        <Preference
+            android:key="customDozePeriods"
+            android:summary="@string/custom_doze_periods_setting_summary_empty"
+            android:title="@string/custom_doze_periods_setting_title" />
+    </PreferenceScreen>
+
+    <!-- Sub-screen: Advanced -->
+    <PreferenceScreen
+        android:key="otherSettings"
+        android:title="@string/settings_advanced_title"
+        android:summary="@string/settings_advanced_summary"
+        android:icon="@drawable/ic_settings_black_18dp">
         <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="disableStats"
@@ -187,10 +215,11 @@
         <Preference
             android:key="aboutForceDoze"
             android:title="@string/about_forcedoze_setting_title">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="com.akylas.enforcedoze.AboutAppActivity"
-            android:targetPackage="com.akylas.enforcedoze" />
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.akylas.enforcedoze.AboutAppActivity"
+                android:targetPackage="com.akylas.enforcedoze" />
         </Preference>
-    </PreferenceCategory>
+    </PreferenceScreen>
+
 </PreferenceScreen>
