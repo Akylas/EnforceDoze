@@ -65,7 +65,7 @@
     <string name="whitelist_apps_setting_summary">டோச் பயன்முறையிலிருந்து அனுமதிப்பட்டியல் பயன்பாடுகள்</string>
     <string name="whitelist_apps_setting_text">அனுமதிப்பட்டியல் பயன்பாடுகள்</string>
     <string name="reset_forcedoze_setting_summary">இயல்புநிலை நிலைக்கு அமலாக்கத்தை மீட்டமைக்கவும்</string>
-    <string name="reset_forcedoze_setting_title">UNFORCEDOZE ஐ மீட்டமைக்கவும்</string>
+    <string name="reset_forcedoze_setting_title">enforcedoze ஐ மீட்டமை</string>
     <string name="clear_doze_stats_setting_summary">அழி டோச் பேட்டரி புள்ளிவிவரங்கள்</string>
     <string name="show_app_logs_setting_summary">பயன்பாட்டு பிழைத்திருத்த பதிவுகளைக் காட்டு</string>
     <string name="clear_doze_stats_setting_title">தெளிவான புள்ளிவிவரங்கள்</string>
@@ -117,7 +117,7 @@
     <string name="remove_package_menu_item">தொகுப்பை அகற்று</string>
     <string name="battery_optimization_menu_item">பேட்டரி தேர்வுமுறை</string>
     <string name="doze_stats_battery_icon_meaning_dialog_title">ஐகான்கள் என்றால் என்ன?</string>
-    <string name="tile_label">FORCEDOZE</string>
+    <string name="tile_label">கட்டாயெடுப்பு</string>
     <string name="doze_stats_battery_icon_meaning_dialog_text">மின்னல் அடையாளத்துடன் கூடிய பேட்டரி படவுரு அந்த டோச் அமர்வின் போது பேட்டரி பயன்பாடு ஏற்றுக்கொள்ளக்கூடிய வரம்புகளுக்குள் இருப்பதைக் குறிக்கிறது, மேலும் ஆச்சரியக் அறிகுறியுடன் கூடிய பேட்டரி படவுரு அந்த டோச் அமர்வின் போது பேட்டரி பயன்பாடு ஏற்றுக்கொள்ளக்கூடிய வரம்புகளுக்கு மேல் இருப்பதைக் குறிக்கிறது. எந்தவொரு டோச் அமர்விலும் பேட்டரி பயன்பாடு ஏற்றுக்கொள்ளக்கூடிய வரம்புகளுக்கு மேல் இருந்தால், உங்கள் பேட்டரியை வடிகட்டியதை விசாரிக்க சி.எச்.ஏ.எம் அல்லது மற்றொரு மூன்றாம் தரப்பு பேட்டரி புள்ளிவிவரங்கள் பயன்பாட்டைப் பார்க்க அறிவுறுத்தப்படுகிறீர்கள்</string>
     <string name="app_blocklist_setting_summary">பயன்பாடுகள் (மற்றும் அதன் பின்னணி சேவைகள்) டோச் போது இயங்குவதைத் தடுக்கவும்</string>
     <string name="notif_blocklist_setting_summary">டோசின் போது அறிவிப்புகள் வழங்கப்படுவதைத் தடுக்கவும்</string>
@@ -172,4 +172,43 @@
     <string name="licenses">உரிமங்கள்</string>
     <string name="translations">மொழிபெயர்ப்புகள்</string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="disable_bluetooth_setting_title">திரையில் ப்ளூடூத்தை முடக்கு</string>
+    <string name="disable_bluetooth_setting_summary">சாதனம் டோச் பயன்முறையில் இருக்கும்போது புளூடூத்தை முடக்கவும்</string>
+    <string name="disable_gps_setting_title">திரையில் உலக இடம் காட்டும் அமைப்பு (இடம் காட்டி) ஐ முடக்கு</string>
+    <string name="disable_gps_setting_summary">சாதனம் டோச் பயன்முறையில் இருக்கும்போது GPS/இருப்பிடத்தை முடக்கவும்</string>
+    <string name="custom_doze_periods_setting_title">தனிப்பயன் டோச் காலங்கள்</string>
+    <string name="custom_doze_periods_setting_summary_empty">தனிப்பயன் காலங்கள் இல்லை. EnforceDoze எந்த நேரத்திலும் இயங்கலாம்.</string>
+    <string name="custom_doze_periods_setting_summary" formatted="false">செயலில் இருக்கும் போது: %1$s</string>
+    <string name="add_custom_doze_period_button">காலத்தைச் சேர்க்கவும்</string>
+    <string name="custom_doze_period_start_title">தொடக்க நேரம்</string>
+    <string name="custom_doze_period_end_title">முடிவு நேரம்</string>
+    <string name="remove_custom_doze_period_dialog_text">இந்த தனிப்பயன் டோச் காலத்தை அகற்றவா?</string>
+    <string name="custom_doze_period_same_time_error">தொடக்க மற்றும் முடிவு நேரங்கள் வித்தியாசமாக இருக்க வேண்டும்.</string>
+    <string name="airplane_tile_label">EnforceDoze வானூர்தி</string>
+    <string name="tile_subtitle_on">அன்று</string>
+    <string name="tile_subtitle_off">அணை</string>
+    <string name="show_disabled_notification_setting_title">முடக்கப்பட்டிருக்கும் போது அறிவிப்பைக் காட்டு</string>
+    <string name="show_disabled_notification_setting_summary">EnforceDoze முடக்கப்பட்டிருக்கும் போது நிலைப் பட்டி அறிவிப்பைக் காட்டு (இயக்க தட்டவும்)</string>
+    <string name="notification_channel_disabled_name">EnforceDoze முடக்கப்பட்டது</string>
+    <string name="notification_channel_disabled_description">EnforceDoze முடக்கப்பட்டிருக்கும் போது அறிவிப்பு</string>
+    <string name="enforcedoze_disabled_notif_title">EnforceDoze முடக்கப்பட்டுள்ளது</string>
+    <string name="enforcedoze_disabled_notif_text">EnforceDozeஐ இயக்க தட்டவும்</string>
+    <string name="execution_mode_setting_title">செயல்படுத்தும் முறை</string>
+    <string name="execution_mode_setting_summary">கட்டளைகளை இயக்க ரூட் அல்லது சிசுகு இடையே தேர்வு செய்யவும்</string>
+    <string name="execution_mode_root">மூலம்</string>
+    <string name="execution_mode_shizuku">சிசுகு</string>
+    <string name="shizuku_not_available_error">Shizku பயன்முறை தேர்ந்தெடுக்கப்பட்டது ஆனால் Shizku கிடைக்கவில்லை. Shizku ஐ நிறுவி தொடங்கவும் அல்லது அமைப்புகளில் ரூட் பயன்முறைக்கு மாறவும்.</string>
+    <string name="copy_tunable_string">டியூன் செய்யக்கூடிய சரத்தை நகலெடுக்கவும்</string>
+    <string name="apply">இடு</string>
+    <string name="version_format" formatted="false">%1$s (உருவாக்கம் %2$s)</string>
+    <string name="source_code">மூலக் குறியீடு</string>
+    <string name="about_open_source_title">திறந்த மூல</string>
+    <string name="about_info_legal_title">செய்தி &amp; சட்ட</string>
+    <string name="sponsor_card_title">EnforceDoze ஐ ஆதரிக்கவும்</string>
+    <string name="sponsor_card_text">EnforceDoze இலவசம், ஓப்பன் சோர்ச் மற்றும் விளம்பரம் இல்லாதது. இது உங்கள் பேட்டரியைச் சேமிக்கும் பட்சத்தில், திட்டத்தை உயிர்ப்புடனும், வளர்ச்சியுடனும் வைத்திருக்க உதவும் நிதியுதவியைக் கருத்தில் கொள்ளுங்கள்!</string>
+    <string name="sponsor_github">அறிவிலிவேள்வி ஒப்புரவாளர்கள்</string>
+    <string name="sponsor_liberapay">லிபரபே</string>
+    <string name="sponsor_settings_title">திட்டத்தை ஆதரிக்கவும்</string>
+    <string name="sponsor_settings_summary">EnforceDoze இலவசம் &amp; திறந்த மூலமானது — ஒப்புரவாளர் செய்வதைக் கருத்தில் கொள்ளுங்கள்</string>
+    <string name="licenses_text">பொருள் உரையாடல்கள் \nhttps://github.com/afollestad/material-dialogs \nஐடன் மைக்கேல் ஃபோல்ச்டாட் - எம்ஐடி உரிமம் \n\nlibsuperuser \nhttps://github.com/Chainfire/libsuperuser \nசெயின்ஃபயர் — அப்பாச்சி உரிமம் 2.0 \n\nநானோடாச்க்குகள் \nhttps://github.com/fabiendevos/nanotasks \nஃபேபியன் டெவோச் — அப்பாச்சி உரிமம் 2.0 \n\nProcessPhoenix \nhttps://github.com/JakeWharton/ProcessPhoenix \nசேக் வார்டன் — அப்பாச்சி உரிமம் 2.0 \n\nஎளிய தனிப்பயன் தாவல்கள் \nhttps://github.com/eliseomartelli/SimpleCustomTabs \nEliseo Martelli — MIT உரிமம்</string>
 </resources>
